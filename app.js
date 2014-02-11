@@ -1,12 +1,9 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var stream = require('./lib/streamio')
 var app = express()
   , server = require('http').createServer(app)
-	, log = require('nodeutil').logger.getInstance('app.js')
 
-// all environments
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -18,16 +15,19 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-/**
- * Serve a steam media
- */
+// Step1: Require the module
+var stream = require('./lib/streamio')
+
+// Step2: Set the default path
+stream.setDefaultPath(__dirname);
+
+// Step3: Serve a steam media
 app.get('/video/:type/:file', function(req, res) {
-  log.info('Play stream file:%s with type:%s', req.params.file, req.params.type);
+  console.log('Play stream file:%s with type:%s', req.params.file, req.params.type);
   stream.getResponse(res, req.params.file, 'video/' + req.params.type);
 });
 
