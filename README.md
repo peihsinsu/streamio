@@ -1,34 +1,36 @@
 StreamIO for your Video
 ----
 
-!Install and create a project
+# Install and create a project
 
-!! Create a web using express
+## Create a web using express
+
 ```
 $ express -s -e demo
 $ cd demo && npm install
 ```
 
-!! Install streamio dependency
+## Install streamio dependency
+
 ```
 $ npm install streamio --save
 ```
 
-!Edit your app.js
+# Edit your app.js
 
-!!Step1: Require the module
+## Step1: Require the module
 
 ```
 var stream = require('./lib/streamio')
 ```
 
-!!Step2: Set the default path
+## Step2: Set the default path
 
 ```
 stream.setDefaultPath(__dirname);
 ```
 
-!!Step3: Serve a steam media
+## Step3: Serve a steam media
 
 ```
 app.get('/video/:type/:file', function(req, res) {
